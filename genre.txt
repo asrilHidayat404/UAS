@@ -1,0 +1,88 @@
+MOVIE
+Action          28
+Adventure       12
+Animation       16
+Comedy          35
+Crime           80
+Documentary     99
+Drama           18
+Family          10751
+Fantasy         14
+History         36
+Horror          27
+Music           10402
+Mystery         9648
+Romance         10749
+Science Fiction 878
+TV Movie        10770
+Thriller        53
+War             10752
+Western         37
+
+this.genreURL = "https://api.themoviedb.org/3/discover/movie?api_key=43a84b44b9e916d44359dd17e355faf5&with_genres=" + genre
+
+jika saya mempunyai variable "const genre1 = 28 const genre2 = 22" dan mempunyai variable "const genres = {id: 28, name: "action"}, {id: 12, name: "war"}". bagaimana cara mengakses genres berdasarkan nilai dari genre?
+
+
+Pertimbangkan untuk menempatkan warna tersebut pada elemen-elemen berikut di website Anda:
+
+Navbar:
+
+Background Navbar (Light Mode): #FFFFFF
+Text Navbar (Light Mode): #333333
+Background Navbar (Dark Mode): #1E1E1E
+Text Navbar (Dark Mode): #FFFFFF
+Main Content:
+
+Background Content (Light Mode): #FFFFFF
+Text Content (Light Mode): #333333
+Background Content (Dark Mode): #1E1E1E
+Text Content (Dark Mode): #FFFFFF
+Card/List Film:
+
+Background Card (Light Mode): Pilih warna yang cocok dengan desain keseluruhan, mungkin #F5F5F5 untuk abu-abu muda.
+Text Card (Light Mode): #333333
+Background Card (Dark Mode): Pilih warna yang cocok untuk mode gelap, misalnya #2C2C2C untuk abu-abu gelap.
+Text Card (Dark Mode): #FFFFFF
+Anda bisa menggunakan warna aksen sebagai warna untuk tombol, garis pemisah, atau elemen-elemen lain yang memerlukan sorotan khusus. Pastikan bahwa elemen-elemen tersebut tetap terlihat baik dan kontras di kedua mode.
+
+Contoh dalam CSS (gunakan kode warna Hex sesuai kebutuhan):
+
+css
+Copy code
+/* Navbar Styles */
+.navbar {
+  background-color: #FFFFFF; /* Light Mode */
+  color: #333333; /* Light Mode */
+}
+
+/* Dark Mode Styles */
+.dark-mode .navbar {
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+}
+
+/* Main Content Styles */
+.main-content {
+  background-color: #FFFFFF; /* Light Mode */
+  color: #333333; /* Light Mode */
+}
+
+/* Dark Mode Styles */
+.dark-mode .main-content {
+  background-color: #1E1E1E;
+  color: #FFFFFF;
+}
+
+/* Card Styles */
+.card {
+  background-color: #F5F5F5; /* Light Mode */
+  color: #333333; /* Light Mode */
+}
+
+/* Dark Mode Styles */
+.dark-mode .card {
+  background-color: #2C2C2C;
+  color: #FFFFFF;
+}
+Pastikan untuk menyesuaikan kelas dan struktur HTML Anda sesuai dengan penamaan kelas di CSS. Juga, pastikan untuk mengaktifkan dan menonaktifkan mode gelap dengan benar pada situs web Anda agar gaya CSS yang sesuai dapat diterapkan.
