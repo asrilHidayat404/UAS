@@ -4,7 +4,7 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -145,14 +145,15 @@ a {
 .hero-section {
   color: #eaeaea; /* Warna teks di hero section */
   height: 90vh;
-  background-image: url("../assets/hero.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   text-align: center;
+  transition: .7s ease;
 }
 
 .hero-section h1 {
@@ -309,6 +310,8 @@ a {
   .footer .footer-content {
     flex-direction: column;
   }
+  .darkOn { background-color: #982176; }
+  .lightOn { background-color: #a1d6e2; }
 }
 
 
@@ -425,7 +428,7 @@ a {
 }
 
 .actor_name {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: 500;
 }
 
@@ -536,13 +539,14 @@ a {
 
 .footer-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   max-width: 1200px;
   gap: 10px;
 }
-
+.footer-logo {
+  flex: 1;
+}
 .footer-logo h3 {
   margin: 0;
 }
@@ -552,6 +556,7 @@ a {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  flex: 1;
 }
 
 .footer-links a,

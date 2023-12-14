@@ -17,6 +17,15 @@ const navGenre = document.querySelector(".navbar .bottom");
 const footer = document.querySelector(".footer");
 const footerLinks = document.querySelectorAll(".footer .footer-links a");
 const footerSocial = document.querySelectorAll(".footer .footer-social a");
+const heroSection = document.querySelector(".hero-section")
+
+heroSection.style.backgroundImage = "url(../assets/hero1.jpg)"
+let heroCount = 0
+setInterval(()=> {
+  heroCount++
+  heroSection.style.backgroundImage = `url(../assets/hero${heroCount}.jpg)`
+  heroCount === 5 ? heroCount = 0 : ''
+},10000)
 
 hamburger.addEventListener("click", ()=> {
   navGenre.classList.toggle("on");
@@ -63,15 +72,15 @@ darkModeToggle.addEventListener('click', () => {
     searchOn.style.color = '#eaeaea';
     navbar.style.color = '#eaeaea';
     filmCards.forEach(filmCard => {
-      filmCard.style.backgroundColor = '#982176';
+      filmCard.style.backgroundColor = '#F11A7B';
       filmCard.style.color = '#eaeaea';
       filmCard.children[2].style.color = '#eaeaea';
     })
     containerMovie.style.backgroundColor = '#FFE5AD'
     navGenre.style.backgroundColor= "#982176"
     // search.style.backgroundColor= "#982176"
-    search.classList.add("darkMode")
-    search.classList.remove("lightMode")
+    search.classList.add("darkOn")
+    search.classList.remove("lightOn")
     hamburger.children[0].style.backgroundColor= "#eaeaea"
     hamburger.children[1].style.backgroundColor= "#eaeaea"
     hamburger.children[2].style.backgroundColor= "#eaeaea"
@@ -80,7 +89,7 @@ darkModeToggle.addEventListener('click', () => {
     footerLinks.forEach(fs => fs.style.color = "#eaeaea")
     footerSocial.forEach(fs => fs.style.color = "#eaeaea")
   } else {
-    containerMovie.style.backgroundColor = '#CDF5FD'
+    containerMovie.style.backgroundColor = '#eaeaea'
     darkModeToggle.setAttribute("class","fa fa-moon-o")
         navbar.style.backgroundColor = '#1cb0f6'
     searchMovie.children[0].style.color = '#282828'
@@ -93,8 +102,8 @@ darkModeToggle.addEventListener('click', () => {
     })
     navGenre.style.backgroundColor= "#a1d6e2"
     // search.style.backgroundColor= "#a1d6e2"
-    search.classList.add("lightMode")
-    search.classList.remove("darkMode")
+    search.classList.add("lightOn")
+    search.classList.remove("darkOn")
     hamburger.children[0].style.backgroundColor= "#282828"
     hamburger.children[1].style.backgroundColor= "#282828"
     hamburger.children[2].style.backgroundColor= "#282828"
@@ -105,7 +114,6 @@ darkModeToggle.addEventListener('click', () => {
   }
 });
 
-const cetak = document.querySelector(".cta-button")
 
 const options = {
   method: 'GET',
@@ -132,7 +140,7 @@ class Search {
     console.log(results)
     let card = ''
     results.forEach(result => card += this.showCard(result))
-    const searchResults = `<div class="resultInfo">Hasil pencarian dari: <span class="userInput">${inputMovie.value}</span></div>
+    const searchResults = `<div class="resultInfo">Search results from: <span class="userInput">${inputMovie.value}</span></div>
     <div class="searchResult">${card}</div>`
     containerMovie.innerHTML = searchResults
   }
@@ -426,7 +434,7 @@ class MovieOfGenre {
     results.forEach(result => card += this.showCard(result))
     if (this.pageIndex < 2) {
         return containerMovie.innerHTML = `<div class="kategori-films">
-      <div class="resultInfo">Film berdasarkan kategori: <span class="userInput">${this.namaKategori}</span></div>
+      <div class="resultInfo">Results of movies by category: <span class="userInput">${this.namaKategori}</span></div>
       <div class="film-item">
         <div class="film-cards-movieOfGenre">
           <div class="page page1">${card}</div>
