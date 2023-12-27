@@ -19,12 +19,13 @@ const footerLinks = document.querySelectorAll(".footer .footer-links a");
 const footerSocial = document.querySelectorAll(".footer .footer-social a");
 const heroSection = document.querySelector(".hero-section")
 
-heroSection.style.backgroundImage = `url('https://github.com/asrilHidayat404/UAS/tree/main/assets/hero1.jpg')`;
+ const base = 'https://asrilhidayat404.github.io/UAS'
+heroSection.style.backgroundImage = `url("${base}/assets/hero1.jpg")`;
 let heroCount = 0;
 
 setInterval(() => {
   heroCount++;
-  heroSection.style.backgroundImage = `url('https://github.com/asrilHidayat404/UAS/tree/main/assets/hero${heroCount}.jpg')`;
+  heroSection.style.backgroundImage = `url("${base}/assets/hero{heroCount}.jpg")`;
 
   if (heroCount === 5) {
     heroCount = 0;
