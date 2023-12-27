@@ -20,7 +20,7 @@ const footerSocial = document.querySelectorAll(".footer .footer-social a");
 const heroSection = document.querySelector(".hero-section")
 
 const baseUrl = "https://github.com/asrilHidayat404/UAS/tree/main/assets/";
-heroSection.style.backgroundImage = `url(${baseUrl}hero1.jpg)`;
+heroSection.style.backgroundImage = `url(${baseUrl}/hero1.jpg)`;
 let heroCount = 0;
 
 setInterval(() => {
