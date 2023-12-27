@@ -19,7 +19,7 @@ const footerLinks = document.querySelectorAll(".footer .footer-links a");
 const footerSocial = document.querySelectorAll(".footer .footer-social a");
 const heroSection = document.querySelector(".hero-section")
 
- const base = 'https://asrilhidayat404.github.io/UAS'
+const base = 'https://asrilhidayat404.github.io/UAS'
 heroSection.style.backgroundImage = `url("${base}/assets/hero1.jpg")`;
 let heroCount = 0;
 
