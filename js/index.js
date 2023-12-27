@@ -19,11 +19,11 @@ const footerLinks = document.querySelectorAll(".footer .footer-links a");
 const footerSocial = document.querySelectorAll(".footer .footer-social a");
 const heroSection = document.querySelector(".hero-section")
 
-heroSection.style.backgroundImage = "url(../assets/hero1.jpg)"
+heroSection.style.backgroundImage = "url('../assets/hero1.jpg')"
 let heroCount = 0
 setInterval(()=> {
   heroCount++
-  heroSection.style.backgroundImage = `url(../assets/hero${heroCount}.jpg)`
+  heroSection.style.backgroundImage = `url('../assets/hero${heroCount}.jpg')`
   heroCount === 5 ? heroCount = 0 : ''
 },10000)
 
