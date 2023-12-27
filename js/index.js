@@ -25,7 +25,7 @@ let heroCount = 0;
 
 setInterval(() => {
   heroCount++;
-  heroSection.style.backgroundImage = `url(${baseUrl}hero${heroCount}.jpg)`;
+  heroSection.style.backgroundImage = `url(${baseUrl}/hero${heroCount}.jpg)`;
 
   if (heroCount === 5) {
     heroCount = 0;
