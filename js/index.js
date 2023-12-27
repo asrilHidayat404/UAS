@@ -19,13 +19,13 @@ const footerLinks = document.querySelectorAll(".footer .footer-links a");
 const footerSocial = document.querySelectorAll(".footer .footer-social a");
 const heroSection = document.querySelector(".hero-section")
 
-heroSection.style.backgroundImage = "url(../assets/hero1.jpg)"
-let heroCount = 0
-setInterval(()=> {
-  heroCount++
-  heroSection.style.backgroundImage = `url(../assets/hero${heroCount}.jpg)`
-  heroCount === 5 ? heroCount = 0 : ''
-},10000)
+// heroSection.style.backgroundImage = "url(../assets/hero1.jpg)"
+// let heroCount = 0
+// setInterval(()=> {
+//   heroCount++
+//   heroSection.style.backgroundImage = `url(../assets/hero${heroCount}.jpg)`
+//   heroCount === 5 ? heroCount = 0 : ''
+// },10000)
 
 hamburger.addEventListener("click", ()=> {
   navGenre.classList.toggle("on");
@@ -65,18 +65,15 @@ let pageResultsRecommended = 1;
 darkModeToggle.addEventListener('click', () => {
   const navbar = document.querySelector(".navbar");
   const filmCards = document.querySelectorAll(".film-card");
+  const tHeader1 = document.querySelector(".trending-films h2")
+  const tHeader2 = document.querySelector(".direkomendasikan h2")
   if (darkModeToggle.className == "fa fa-moon-o"){
     darkModeToggle.setAttribute("class","fa fa-sun-o");
     navbar.style.backgroundColor = '#F11A7B';
     searchMovie.children[0].style.color = '#eaeaea';
     searchOn.style.color = '#eaeaea';
     navbar.style.color = '#eaeaea';
-    filmCards.forEach(filmCard => {
-      filmCard.style.backgroundColor = '#F11A7B';
-      filmCard.style.color = '#eaeaea';
-      filmCard.children[2].style.color = '#eaeaea';
-    })
-    containerMovie.style.backgroundColor = '#FFE5AD'
+    containerMovie.style.backgroundColor = '#171010'
     navGenre.style.backgroundColor= "#982176"
     // search.style.backgroundColor= "#982176"
     search.classList.add("darkOn")
@@ -84,6 +81,9 @@ darkModeToggle.addEventListener('click', () => {
     hamburger.children[0].style.backgroundColor= "#eaeaea"
     hamburger.children[1].style.backgroundColor= "#eaeaea"
     hamburger.children[2].style.backgroundColor= "#eaeaea"
+    tHeader1.style.color = '#eaeaea'
+    tHeader2.style.color = '#eaeaea'
+    filmCards.forEach(film => film.style.boxShadow = "0px 0px 2px 2px #eaeaea")
     footer.style.backgroundColor= "#F11A7B"
     footer.style.color = '#eaeaea';
     footerLinks.forEach(fs => fs.style.color = "#eaeaea")
@@ -95,11 +95,6 @@ darkModeToggle.addEventListener('click', () => {
     searchMovie.children[0].style.color = '#282828'
     searchOn.style.color = '#282828';
     navbar.style.color = '#282828'
-    filmCards.forEach(filmCard => {
-      filmCard.style.backgroundColor = '#89CFF3'
-      filmCard.style.color = '#282828'
-      filmCard.children[2].style.color = '#282828'
-    })
     navGenre.style.backgroundColor= "#a1d6e2"
     // search.style.backgroundColor= "#a1d6e2"
     search.classList.add("lightOn")
@@ -107,6 +102,9 @@ darkModeToggle.addEventListener('click', () => {
     hamburger.children[0].style.backgroundColor= "#282828"
     hamburger.children[1].style.backgroundColor= "#282828"
     hamburger.children[2].style.backgroundColor= "#282828"
+    filmCards.forEach(film => film.style.boxShadow= "0px 0px 2px 2px #282828")
+    tHeader1.style.color = '#282828'
+    tHeader2.style.color = '#282828'
     footer.style.backgroundColor= "#1cb0f6"
     footer.style.color = '#282828';
     footerLinks.forEach(fs => fs.style.color = "#282828")
@@ -140,26 +138,30 @@ class Search {
     console.log(results)
     let card = ''
     results.forEach(result => card += this.showCard(result))
-    const searchResults = `<div class="resultInfo">Search results from: <span class="userInput">${inputMovie.value}</span></div>
+    const searchResults = `<div class="resultInfo" style="font-size: .9em">Search results from: <span class="userInput">${inputMovie.value}</span></div>
     <div class="searchResult">${card}</div>`
     containerMovie.innerHTML = searchResults
   }
-  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title}) {
+  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title, vote_average}) {
+    const year = new Releasedbj(release_date).result().year
     return `
-        <div class="film-card">
-            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="Judul Film 1">
-            <h3 class="movieTitle"
+    <div class="film-card">
+          <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="" class="poster">
+          <div class="rate">
+            <div><img src="assets/star2.png" alt="" class="star">
+            <p class="score">${vote_average}</p>
+            </div>
+          </div>
+          <div class="movieTitle"
               data-movieid=${id}
               data-genre=${genre_ids}
               data-originaltitle = "${original_title}"
               data-releasedate = ${release_date}
               data-overview = "${overview}"
               data-backdroppath = ${backdrop_path}
-              data-posterpath = ${poster_path}>
-              ${title}
-            </h3>
-            <p>${release_date}</p>
-          </div>
+              data-posterpath = ${poster_path}
+          >${title} (${year})</div>
+        </div>
     `
   }
 }
@@ -175,6 +177,7 @@ class Trending {
       .then(response => response.json())
       .finally(()=>loading.style.display = "none")
       .then(response => {
+        console.log(response)
         this.manage(response)
     }) 
   }
@@ -188,11 +191,17 @@ class Trending {
         this.pageElements.innerHTML = card
     }
   }
-  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title}) {
+  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title, vote_average}) {
+    const year = new Releasedbj(release_date).result().year
     return `
-        <div class="film-card">
-            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="Judul Film 1">
-            <h3 class="movieTitle"
+    <div class="film-card">
+          <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="" class="poster">
+          <div class="rate">
+            <div><img src="assets/star2.png" alt="" class="star">
+            <p class="score">${vote_average}</p>
+            </div>
+          </div>
+          <div class="movieTitle"
               data-movieid=${id}
               data-genre=${genre_ids}
               data-originaltitle = "${original_title}"
@@ -200,9 +209,8 @@ class Trending {
               data-overview = "${overview}"
               data-backdroppath = ${backdrop_path}
               data-posterpath = ${poster_path}
-              >${title}</h3>
-            <p>${release_date}</p>
-          </div>
+          >${title} (${year})</div>
+        </div>
     `
   }
 }
@@ -221,6 +229,7 @@ class Recommended {
       .then(response => response.json())
       .finally(()=>loading.style.display = "none")
       .then(response => {
+        console.log(response)
         this.manage(response)
     }) 
   }
@@ -234,11 +243,17 @@ class Recommended {
         this.pageElements.innerHTML = card
     }
   }
-  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title}) {
+  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title, vote_average}) {
+    const year = new Releasedbj(release_date).result().year
     return `
-        <div class="film-card">
-            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="Judul Film 1">
-            <h3 class="movieTitle"
+    <div class="film-card">
+          <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="" class="poster">
+          <div class="rate">
+            <div><img src="assets/star2.png" alt="" class="star">
+            <p class="score">${vote_average}</p>
+            </div>
+          </div>
+          <div class="movieTitle"
               data-movieid=${id}
               data-genre=${genre_ids}
               data-originaltitle = "${original_title}"
@@ -246,9 +261,8 @@ class Recommended {
               data-overview = "${overview}"
               data-backdroppath = ${backdrop_path}
               data-posterpath = ${poster_path}
-              >${title}</h3>
-            <p>${release_date}</p>
-          </div>
+          >${title} (${year})</div>
+        </div>
     `
   }
 }
@@ -331,7 +345,7 @@ class MovieDetail {
     ${link}
 
     <div class="cast">
-      <h1 style= "margin-left: 20px;">Actor and Actrees</h1>
+      <h1>Actor and Actrees</h1>
       <div class="actorList">
         ${cardDetail}
       </div>
@@ -347,7 +361,7 @@ class MovieDetail {
           </div>
           <div class="actor_info">
             <span class="actor_name">${original_name}</span>
-            <span>as</span>
+            <span class="as">as</span>
             <span class="actor_role">${character}</span>
           </div>
         </div>
@@ -385,17 +399,26 @@ class Trailer {
 }
 
 async function getTrailerURL (e, id) {
+  console.log(e)
   const trailer = new Trailer(id)
   await trailer.getTrailer()
   const key = trailer.result()
   if (key == '') {
      return
   } else {
-     return e.innerHTML = `
-    <a href="https://www.youtube.com/watch?v=${key}" target="_blank" class="goToYT">
-      <div>Tonton sekarang</div>
-      <img src="assets/play.png" alt="" width="60px"/>
-    </a>`
+    // Tambahkan elemen iframe untuk menampilkan pemutar video
+    const iframeElement = document.createElement('iframe');
+    iframeElement.width = '80%';
+    iframeElement.height = '415';
+    iframeElement.src = `https://www.youtube.com/embed/${key}?autoplay=1`;
+    iframeElement.frameBorder = '0';
+    iframeElement.allowFullscreen = true;
+
+    // Gantikan elemen HTML yang sebelumnya
+    e.innerHTML = '';
+    e.setAttribute("class", "videoOn")
+    e.appendChild(iframeElement);
+    console.log(e)
   }
 }
 
@@ -434,7 +457,7 @@ class MovieOfGenre {
     results.forEach(result => card += this.showCard(result))
     if (this.pageIndex < 2) {
         return containerMovie.innerHTML = `<div class="kategori-films">
-      <div class="resultInfo">Results of movies by category: <span class="userInput">${this.namaKategori}</span></div>
+      <div class="resultInfo" style="font-size:.9em;">Results of movies by category: <span class="userInput">${this.namaKategori}</span></div>
       <div class="film-item">
         <div class="film-cards-movieOfGenre">
           <div class="page page1">${card}</div>
@@ -449,11 +472,17 @@ class MovieOfGenre {
         this.pageElements.innerHTML = card
     }
   }
-  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title}) {
+  showCard ({title, genre_ids, release_date, poster_path, id, overview, popularity, backdrop_path, original_title, vote_average}) {
+    const year = new Releasedbj(release_date).result().year
     return `
-        <div class="film-card">
-            <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="Judul Film 1">
-            <h3 class="movieTitle"
+    <div class="film-card">
+          <img src="https://image.tmdb.org/t/p/original/${poster_path}" alt="" class="poster">
+          <div class="rate">
+            <div><img src="assets/star2.png" alt="" class="star">
+            <p class="score">${vote_average}</p>
+            </div>
+          </div>
+          <div class="movieTitle"
               data-movieid=${id}
               data-genre=${genre_ids}
               data-originaltitle = "${original_title}"
@@ -461,9 +490,8 @@ class MovieOfGenre {
               data-overview = "${overview}"
               data-backdroppath = ${backdrop_path}
               data-posterpath = ${poster_path}
-              >${title}</h3>
-            <p>${release_date}</p>
-          </div>
+          >${title} (${year})</div>
+        </div>
     `
   }
 }
@@ -516,3 +544,41 @@ document.addEventListener("click", (e)=> {
   } 
 })
 
+
+class Releasedbj {
+  constructor (released) {
+    this.released = Array.from(released)
+    this.releasedObj
+  }
+  getYear () {
+    const released = this.released
+    let year = ''
+    for(let i = 0; i < (released.length - released.length + 4); i++){
+      year += released[i]
+    }
+    return year
+  }
+  getMonth () {
+    const released = this.released
+    let month = ''
+    for(let i = (released.length - released.length + 5); i < ((released.length - released.length + 4) +  3); i++){
+      month += released[i]
+    }
+    return month
+  }
+  getDate () {
+    const released = this.released
+    let date = ''
+    for(let i = (released.length - 2); i < (released.length); i++){
+      date += released[i]
+    }
+    return date
+  }
+  result () {
+    return this.releasedObj = {
+      date: this.getDate(),
+      month: this.getMonth(),
+      year: this.getYear()
+    }
+  }
+}

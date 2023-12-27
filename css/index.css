@@ -16,7 +16,7 @@ a {
   display: flex;
   flex-direction: column;
   background-color: #eaeaea;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 .navbar {
   background-color: #1cb0f6; /* Warna latar belakang navbar */
@@ -117,6 +117,10 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  position: relative;
+  gap: 20px;
+  margin: 20px 0;
+  padding: 0 20px;
 }
 /* ... CSS setelahnya ... */
 
@@ -185,47 +189,67 @@ a {
   flex-wrap: wrap;
   justify-content: space-evenly;
   position: relative;
+  gap: 20px;
+  margin: 20px 0;
 }
 
 .film-card {
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 120px;
+  min-width: 120px;
+  height: 200px;
+  box-shadow: 0px 0px 2px 2px #282828;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  cursor: pointer;
+  z-index: 1;
+}
+.rate {
+  display: flex;
+}
+.rate div {
+  background-color: rgba(0,0,0, .5);
+  padding: 3px 5px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: .6em;
+}
+.movieTitle {
   text-align: center;
+  font-size: .7em;
   padding: 5px;
-  margin: 10px;
-  width: 200px;
-  background-color: #1cb0f6;
-  color: #282828;
+  text-shadow: 0 0 3px black;
+  background-color: rgba(0,0,0, .5);
 }
-
-.film-card img {
-  max-width: 100%;
-  height: auto;
+.film-card .poster {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
-
-.film-card h3 {
-  margin-top: 10px;
-}
-
-.film-card p {
-  color: #282828;
-  margin-top: 5px;
-  font-style: italic;
+.film-card .star {
+  width: 11px;
+  border-radius: 50%;
+  transform: translateY(-1px);
 }
 
 .btnShow {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -30px;
-  padding: 10px 20px;
+  bottom: -40px;
+  padding: 7px 14px;
   border: none;
   background-color: rgb(0,180,0);
   color: white;
-  font-size: 1em;
+  font-size: .7em;
   letter-spacing: 2px;
   cursor: pointer;
+  border-radius: 10px;
 }
 .btnShow:hover {
   background-color: rgb(0, 140, 0);
@@ -264,6 +288,7 @@ a {
     top: 11%;
     width: 100%;
     padding: 5px 0;
+    z-index: 999;
   }
   .search form {
     display: flex;
@@ -278,11 +303,13 @@ a {
     width: 80%;
     border: 2px solid #282828;
   }
+  .hero-section {
+    padding: 0 30px;
+  }
   .hero-section h1 {
-    font-size: 23px;
+    font-size: 18px;
     margin-bottom: 10px;
   }
-
   .navbar .search.on {
     display: flex;
   }
@@ -296,22 +323,48 @@ a {
     font-size: 14px;
     margin-bottom: 20px;
   }
-  .film-card {
-    width: 90px;
+  .film-item {
+    padding: 0;
   }
-  .film-card h3 {
-    font-size: 12px;
-    margin-top: 10px;
-  }
-
-  .film-card p {
-    font-size: 12px;
+  .page {
+    padding: 0;
   }
   .footer .footer-content {
     flex-direction: column;
   }
   .darkOn { background-color: #982176; }
   .lightOn { background-color: #a1d6e2; }
+  .movie_card .info_section .movie_header .moviePoster .detail h1 {
+    font-size: .3em;
+  }
+
+  .cast h1 {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.5em;
+  }
+  .cast .actorList .actor_image {
+    width: 70px;
+  }
+  .cast .actorList .actor_info .actor_name {
+    font-size: .7em;
+  }
+  a .actor_card {
+    display: flex;
+    align-items: center;
+    width: 80px;
+    padding: 3px 0;
+    border-radius: 0px;
+  }
+  a .actor_info .actor_name {
+    font-size: .5em;
+  }
+  a .actor_info .as {
+    font-size: .5em;
+  }
+  a .actor_info .actor_role {
+    font-size: .5em;
+  }
 }
 
 
@@ -357,18 +410,15 @@ a {
 }
 
 .minutes {
-  display: inline-block;
+  display: block;
   margin-top: 15px;
   color: black;
-  padding: 5px;
   border-radius: 5px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .type {
   display: inline-block;
   color: black;
-  margin-left: 10px;
 }
 
 .moviePoster {
@@ -388,7 +438,6 @@ a {
   text-align: justify;
   line-height: 23px;
 }
-
 
 .actorList {
   display: flex;
@@ -438,6 +487,12 @@ a {
 }
 
 @media screen and (max-width: 700px) {
+  .film-card {
+    max-width: 100px;
+    min-width: 100px;
+    height: 160px;
+    font-size: .5em;
+  }
   .movie_card {
     background-position: center;
   }
@@ -445,11 +500,36 @@ a {
     width: 100px;
     padding-top: 10px;
   }
+  .movie_card .info_section .movie_header .moviePoster .detail {
+    justify-content: center;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+  }
   .movie_card .info_section .movie_header .moviePoster .detail h1 {
-    font-size: 25px;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .movie_card .info_section .movie_header .moviePoster .detail h4 {
+    margin-top: 8px;
+    text-shadow: 0 0 0 black;
+    font-size: 10px;
+  }
+  .movie_card .info_section .movie_header .moviePoster .detail .minutes {
+    font-size: 10px;
+    text-shadow: 0 0 0 black;
+    padding: 0;
+  }
+  .movie_card .info_section .movie_header .moviePoster .detail .type {
+    font-size: 10px;
+    margin: 0;
+    text-shadow: 0 0 0 black;
+  }
+  .movie_desc .text {
+    font-size: 13px;
+    text-shadow: 0 0 0 black;
   }
   .actor_name {
-    font-size: 16px;
     font-weight: 500;
   }
   
@@ -479,23 +559,33 @@ a {
   top: 0;
   width: 100%;
   height: 100%;
-  font-size: 50px;
-  color: skyblue;
-  animation: 1s load infinite;
+  z-index: 999;
 }
-@keyframes load {
-  0%{
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #1cb0f6;
+  border-color: #1cb0f6 transparent #1cb0f6 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
     transform: rotate(0deg);
-  } 50% {
-    transform: rotate(180deg);
-  } 100% {
+  }
+  100% {
     transform: rotate(360deg);
   }
 }
-/*.loading i:hover {
-    transform: rotate(360deg);
-  transition: .3s;
-}*/
+
 
 .goToYT{
   display: flex;
@@ -513,6 +603,11 @@ a {
   cursor: pointer;
   margin: auto;
   color: #eaeaea;
+}
+.videoOn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .resultInfo {
