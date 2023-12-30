@@ -413,8 +413,7 @@ async function getTrailerURL (e, id) {
   } else {
     // Tambahkan elemen iframe untuk menampilkan pemutar video
     const iframeElement = document.createElement('iframe');
-    iframeElement.width = '80%';
-    iframeElement.height = '415';
+    iframeElement.classList.add("trailerOn")
     iframeElement.src = `https://www.youtube.com/embed/${key}?autoplay=1`;
     iframeElement.frameBorder = '0';
     iframeElement.allowFullscreen = true;
